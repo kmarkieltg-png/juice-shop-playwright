@@ -57,7 +57,7 @@ Create a local `.env` file in the root of
 ```env
 Test_User_Mail=your-test-email@example.com
 Test_User_Password=your-test-password
-security question=your-security-question
+sSecurity_question=your-security-question
 anwser=your-anwser
 ```
 
