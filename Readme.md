@@ -9,6 +9,7 @@ The project demonstrates UI test automation, form validation,
 and the Page Object Model (POM) design pattern.
 
 Project Status
+
 This project is a work in progress and is being developed
 as part of my QA Automation learning journey.
 
