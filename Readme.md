@@ -8,10 +8,11 @@ the OWASP Juice Shop web application using Playwright and TypeScript.
 The project demonstrates UI test automation, form validation,
 and the Page Object Model (POM) design pattern.
 
-Project Status
+##Project Status
 
 This project is a work in progress and is being developed
 as part of my QA Automation learning journey.
+## Running the Tests
 
 Configure the test account credentials locally using the environment
 variables referenced by the tests.
