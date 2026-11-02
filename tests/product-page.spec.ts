@@ -67,3 +67,12 @@ test('items per page', async ({ page }) => {
         await expect(productCards).toHaveCount(Math.min(Number(pageSize), totalProducts))
     }
 })
+
+test('search bar open and close', async ({ page }) => {
+    const openSearchButton = page.getByRole('button', { name: 'Open search' })
+    await openSearchButton.click()
+    await expect(page.locator('app-mat-search-bar input')).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Close search' })).toBeVisible()
+    await page.getByRole('button', { name: 'Close search' }).click()
+    await expect(openSearchButton).toBeVisible()
+})
