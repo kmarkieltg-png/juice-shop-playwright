@@ -76,3 +76,21 @@ test('search bar open and close', async ({ page }) => {
     await page.getByRole('button', { name: 'Close search' }).click()
     await expect(openSearchButton).toBeVisible()
 })
+
+test('Search bar product search', async ({page}) => {
+    await page.getByRole('button', {name: 'Open search'}).click()
+    const product = 'Basil Smoothie'
+    const searchInput = page.locator('app-mat-search-bar input')
+    await searchInput.fill(product)
+    await searchInput.press('Enter')
+    await expect(page.locator('mat-card')).toContainText(product)
+    
+})
+
+test('Search bar incorrect product', async ({page}) => {
+    await page.getByRole('button', {name: 'Open search'}).click()
+    const searchInput = page.locator('app-mat-search-bar input')
+    await searchInput.fill('dupa')
+    await searchInput.press('Enter')
+    await expect(page.getByText('No results found Try')).toBeVisible()
+})
