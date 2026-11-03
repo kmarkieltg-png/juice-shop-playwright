@@ -90,7 +90,7 @@ test('Search bar product search', async ({page}) => {
 test('Search bar incorrect product', async ({page}) => {
     await page.getByRole('button', {name: 'Open search'}).click()
     const searchInput = page.locator('app-mat-search-bar input')
-    await searchInput.fill('dupa')
+    await searchInput.fill('invalidproduct')
     await searchInput.press('Enter')
     await expect(page.getByText('No results found Try')).toBeVisible()
 })
