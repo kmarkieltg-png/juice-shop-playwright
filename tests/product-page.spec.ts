@@ -77,20 +77,38 @@ test('search bar open and close', async ({ page }) => {
     await expect(openSearchButton).toBeVisible()
 })
 
-test('Search bar product search', async ({page}) => {
-    await page.getByRole('button', {name: 'Open search'}).click()
+test('Search bar product search', async ({ page }) => {
+    await page.getByRole('button', { name: 'Open search' }).click()
     const product = 'Basil Smoothie'
     const searchInput = page.locator('app-mat-search-bar input')
     await searchInput.fill(product)
     await searchInput.press('Enter')
     await expect(page.locator('mat-card')).toContainText(product)
-    
+
 })
 
-test('Search bar incorrect product', async ({page}) => {
-    await page.getByRole('button', {name: 'Open search'}).click()
+test('Search bar incorrect product', async ({ page }) => {
+    await page.getByRole('button', { name: 'Open search' }).click()
     const searchInput = page.locator('app-mat-search-bar input')
     await searchInput.fill('invalidproduct')
     await searchInput.press('Enter')
-    await expect(page.getByText('No results found Try')).toBeVisible()
+    await expect(page.getByText('No results found ')).toBeVisible()
+    await expect(page.getByText(`Try adjusting your search to find what you're looking for.`)).toBeVisible()
+})
+
+test('expand reviews with entries available', async ({ page }) => {
+    await page.locator('mat-card', { hasText: 'Apple Juice (1000ml)' }).click()
+    await page.locator('mat-panel-title', { hasText: 'Reviews' }).click()
+    const reviewsPanel = page.locator('mat-expansion-panel[aria-label="Expand for Reviews"]')
+    await expect(reviewsPanel.locator('mat-expansion-panel-header')).toHaveAttribute('aria-expanded', 'true')
+    await expect(reviewsPanel.locator('.comment').first()).toBeVisible()
+})
+
+test('expand reviews without entries available', async ({ page }) => {
+    await page.locator('mat-card', { hasText: 'Apple Pomace' }).click()
+    await page.locator('mat-panel-title', { hasText: 'Reviews' }).click()
+    const reviewsPanel = page.locator('mat-expansion-panel[aria-label="Expand for Reviews"]')
+    await expect(reviewsPanel.locator('mat-expansion-panel-header')).toHaveAttribute('aria-expanded', 'true')
+    await expect(reviewsPanel.getByText('There is no review for this product yet.')).toBeVisible()
+    await expect(reviewsPanel.locator('.comment')).toHaveCount(0)
 })
